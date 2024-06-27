@@ -1,4 +1,4 @@
-// Copyright (C) 2023 Vitaliy Lobachevskiy
+﻿// Copyright (C) 2023 Vitaliy Lobachevskiy
 // Copyright (C) 2014 Patryk Nadrowski
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h

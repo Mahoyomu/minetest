@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2012 Nikolaus Gebhardt
+﻿// Copyright (C) 2002-2012 Nikolaus Gebhardt
 // Copyright (C) 2016 Nathanaëlle Courant
 //   Modified this class to work with EnrichedStrings too
 // This file is part of the "Irrlicht Engine".

@@ -1,4 +1,4 @@
-// Copyright (C) 2015 Patryk Nadrowski
+﻿// Copyright (C) 2015 Patryk Nadrowski
 // Copyright (C) 2009-2010 Amundis
 // 2017 modified by Michael Zeilfelder (unifying extension handlers)
 // This file is part of the "Irrlicht Engine".

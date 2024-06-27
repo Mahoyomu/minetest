@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2022 x2048, Dmitry Kostenko <codeforsmile@gmail.com>
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2018 bendeutsch, Ben Deutsch <ben@bendeutsch.de>
 

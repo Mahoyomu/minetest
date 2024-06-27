@@ -1,4 +1,4 @@
-// Copyright (C) 2008 Christian Stehno
+﻿// Copyright (C) 2008 Christian Stehno
 // Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
 // 2017 modified by Michael Zeilfelder (unifying extension handlers)
 // This file is part of the "Irrlicht Engine".

@@ -1,4 +1,4 @@
-/* sha1.h
+﻿/* sha1.h
 
 Copyright (c) 2005 Michael D. Leonhard
 

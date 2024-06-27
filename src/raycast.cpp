@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2016 juhdanad, Daniel Juhasz <juhdanad@gmail.com>
 

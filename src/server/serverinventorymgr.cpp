@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2010-2020 Minetest core development team
 

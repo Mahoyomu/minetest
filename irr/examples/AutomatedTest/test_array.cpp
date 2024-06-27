@@ -1,4 +1,4 @@
-#include <irrArray.h>
+﻿#include <irrArray.h>
 #include "test_helper.h"
 
 using namespace irr;

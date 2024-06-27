@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2010-2020 celeron55, Perttu Ahola <celeron55@gmail.com>
 Copyright (C) 2015-2020 paramat

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2015 est31, <MTest31@outlook.com>
 

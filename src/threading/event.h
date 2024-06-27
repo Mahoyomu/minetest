@@ -1,4 +1,4 @@
-/*
+﻿/*
 This file is a part of the JThread package, which contains some object-
 oriented thread wrappers for different thread implementations.
 

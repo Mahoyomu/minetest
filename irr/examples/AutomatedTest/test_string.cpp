@@ -1,4 +1,4 @@
-#include <irrString.h>
+﻿#include <irrString.h>
 #include <cstring>
 #include <clocale>
 #include <vector>

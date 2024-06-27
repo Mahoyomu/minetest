@@ -1,4 +1,4 @@
-// Copyright (C) 2002-2012 Nikolaus Gebhardt
+﻿// Copyright (C) 2002-2012 Nikolaus Gebhardt
 // Copyright (C) 2019 Irrlick
 //
 // This file is part of the "Irrlicht Engine".

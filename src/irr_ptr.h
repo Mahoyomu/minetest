@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2018 numzero, Lobachevskiy Vitaliy <numzer0@yandex.ru>
 

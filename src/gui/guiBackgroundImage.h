@@ -1,4 +1,4 @@
-/*
+﻿/*
 Part of Minetest
 Copyright (C) 2013 RealBadAngel, Maciej Kasatkin <mk@realbadangel.pl>
 

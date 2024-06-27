@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2017 Nore, Nathanaëlle Courant <nore@mesecons.net>
 

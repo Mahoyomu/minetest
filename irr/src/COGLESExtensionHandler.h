@@ -1,4 +1,4 @@
-// Copyright (C) 2008 Christian Stehno
+﻿// Copyright (C) 2008 Christian Stehno
 // Heavily based on the OpenGL driver implemented by Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h

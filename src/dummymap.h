@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2022 TurkeyMcMac, Jude Melton-Houghton <jwmhjwmh@gmail.com>
 

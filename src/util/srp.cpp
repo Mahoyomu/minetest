@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Secure Remote Password 6a implementation
  * https://github.com/est31/csrp-gmp
  *

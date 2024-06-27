@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
@@ -228,7 +228,7 @@ namespace ParticleParamTypes
 		void serialize(std::ostream &os) const;
 		void deSerialize(std::istream &is);
 	};
-
+	
 	template <typename T>
 	inline std::string dump(const TweenedParameter<T>& t)
 	{

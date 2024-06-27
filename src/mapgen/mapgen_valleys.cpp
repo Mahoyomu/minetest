@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2016-2019 Duane Robertson <duane@duanerobertson.com>
 Copyright (C) 2016-2019 paramat

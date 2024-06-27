@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2014 sapier
 Copyright (C) 2018 srifqi, Muhammad Rifqi Priyo Susanto
 		<muhammadrifqipriyosusanto@gmail.com>

@@ -1,4 +1,4 @@
-/*
+﻿/*
    CGUITTFont FreeType class for Irrlicht
    Copyright (c) 2009-2010 John Norman
    Copyright (c) 2016 Nathanaëlle Courant

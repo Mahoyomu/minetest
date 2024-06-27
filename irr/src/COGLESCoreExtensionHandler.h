@@ -1,4 +1,4 @@
-// Copyright (C) 2017 Michael Zeilfelder
+﻿// Copyright (C) 2017 Michael Zeilfelder
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 

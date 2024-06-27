@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2016 sfan5 <sfan5@live.de>
 

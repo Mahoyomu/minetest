@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2013 kwolekr, Ryan Kwolek <kwolekr@minetest.net>
 

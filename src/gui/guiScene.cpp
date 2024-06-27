@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2020 Jean-Patrick Guerrero <jeanpatrick.guerrero@gmail.com>
 

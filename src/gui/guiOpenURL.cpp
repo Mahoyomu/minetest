@@ -1,4 +1,4 @@
-/*
+﻿/*
 Part of Minetest
 Copyright (C) 2023-24 rubenwardy
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2016 Loic Blot <loic.blot@unix-experience.fr>
 
 This program is free software; you can redistribute it and/or modify

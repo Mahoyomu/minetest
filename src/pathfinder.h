@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2013 sapier, sapier at gmx dot net
 

@@ -1,4 +1,4 @@
-/* mini-gmp, a minimalistic implementation of a GNU GMP subset.
+﻿/* mini-gmp, a minimalistic implementation of a GNU GMP subset.
 
 Copyright 2011-2015, 2017, 2019-2021 Free Software Foundation, Inc.
 

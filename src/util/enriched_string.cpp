@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2013 xyz, Ilya Zhuravlev <whatever@xyz.is>
 Copyright (C) 2016 Nore, Nathanaëlle Courant <nore@mesecons.net>
 

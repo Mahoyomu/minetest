@@ -1,4 +1,4 @@
-#include "test.h"
+﻿#include "test.h"
 #include "porting.h"
 #include "gettext.h"
 

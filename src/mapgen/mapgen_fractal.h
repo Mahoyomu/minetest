@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2015-2019 paramat
 Copyright (C) 2015-2016 kwolekr, Ryan Kwolek

@@ -1,4 +1,4 @@
-// Copyright (C) 2022 sfan5
+﻿// Copyright (C) 2022 sfan5
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in Irrlicht.h
 

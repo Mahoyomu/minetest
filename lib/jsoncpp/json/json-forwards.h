@@ -1,4 +1,4 @@
-/// Json-cpp amalgamated forward header (http://jsoncpp.sourceforge.net/).
+﻿/// Json-cpp amalgamated forward header (http://jsoncpp.sourceforge.net/).
 /// It is intended to be used with #include "json/json-forwards.h"
 /// This header provides forward declaration for all JsonCpp types.
 

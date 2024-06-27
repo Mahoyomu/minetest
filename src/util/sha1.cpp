@@ -1,4 +1,4 @@
-/* sha1.cpp
+﻿/* sha1.cpp
 
 Copyright (c) 2005 Michael D. Leonhard
 

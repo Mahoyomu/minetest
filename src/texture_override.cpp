@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2020 Hugues Ross <hugues.ross@gmail.com>
 

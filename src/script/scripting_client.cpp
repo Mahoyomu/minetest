@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 Copyright (C) 2017 nerzhul, Loic Blot <loic.blot@unix-experience.fr>

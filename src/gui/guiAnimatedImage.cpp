@@ -1,4 +1,4 @@
-#include "guiAnimatedImage.h"
+﻿#include "guiAnimatedImage.h"
 
 #include "client/guiscalingfilter.h"
 #include "log.h"

@@ -1,4 +1,4 @@
-/* irrlicht.h -- interface of the 'Irrlicht Engine'
+﻿/* irrlicht.h -- interface of the 'Irrlicht Engine'
 
   Copyright (C) 2002-2012 Nikolaus Gebhardt
 

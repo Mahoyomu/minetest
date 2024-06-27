@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Conversion of f32 to IEEE-754 and vice versa.
  *
  * © Copyright 2018 Pedro Gimeno Fortea.

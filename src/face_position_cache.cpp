@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2015 Nerzhul, Loic Blot <loic.blot@unix-experience.fr>
 

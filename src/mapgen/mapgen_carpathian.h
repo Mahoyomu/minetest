@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2017-2019 vlapsley, Vaughan Lapsley <vlapsley@gmail.com>
 Copyright (C) 2017-2019 paramat

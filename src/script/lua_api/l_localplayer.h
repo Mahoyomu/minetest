@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2017 Dumbeldor, Vincent Glize <vincent.glize@live.fr>
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
 Minetest
 Copyright (C) 2016 MillersMan <millersman@users.noreply.github.com>
 
