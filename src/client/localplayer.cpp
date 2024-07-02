@@ -1203,7 +1203,7 @@ void LocalPlayer::handleAutojump(f32 dtime, Environment *env,
 	const collisionMoveResult &result, const v3f &initial_position,
 	const v3f &initial_speed, f32 pos_max_d)
 {
-	PlayerSettings &player_settings = getPlayerSettings();
+PlayerSettings &player_settings = getPlayerSettings();
 	if (!player_settings.autojump)
 		return;
 
@@ -1216,109 +1216,40 @@ void LocalPlayer::handleAutojump(f32 dtime, Environment *env,
 	if (!could_autojump)
 		return;
 
-	//const CollisionInfo* block_ahead; this is useless
-	// must be running against something to trigger autojumping
 	bool horizontal_collision = false;
 	for (const auto &colinfo : result.collisions) {
 		if (colinfo.type == COLLISION_NODE && colinfo.plane != 1) {
 			horizontal_collision = true;
-			//block_ahead = &colinfo;
 			break; // one is enough
 		}
 	}
-	/*
-	RemotePlayer *player = env->getPlayer(name);
-	PlayerSAO *sao = player->getPlayerSAO();
-	float pitch = sao->getRadLookPitchDep();
-	float yaw = sao->getRadYawDep();
-	v3f v(std::cos(pitch) * std::cos(yaw), std::sin(pitch), std::cos(pitch) * std::sin(yaw));
-	// to get player camera
-	*/
-	/*
 
-	if (m_position.getDistanceFrom(initial_position)<1) //if player hardly moves don't trigger autojump, high chance spamming jump
-		return;
-		//this also is useless cause this position change is very little
-	*/
-	/*
-	v3f main_collide_dir = m_speed - initial_speed; // collide direction used for autojump detection
-	if (main_collide_dir.X < 0 && main_collide_dir.X < main_collide_dir.Z || main_collide_dir.X == 0) // hit something and stop or running against a wall
-		main_collide_dir = v3f(1, 0, 0);
-	if (main_collide_dir.Z < 0 && main_collide_dir.Z < main_collide_dir.X || main_collide_dir.Z == 0)
-		main_collide_dir = v3f(0, 0, 1);
-
-	bool vertical_collision = false; // change after implement
-	//todo: must be only one block ahead to trigger autojumping, in other words there must not be a vertical collision
-
-	//only need 1 block ahead of the mostly right horizontal direction and 1 block above player position
-	v3s16 block_ahead_position = floatToInt(initial_position, BS) + floatToInt(main_collide_dir, BS) + floatToInt(v3f(0, 1, 0), BS);
-	MapNode block_ahead = env->getMap().getNode(block_ahead_position);
-	const NodeDefManager *ndef_temp = env->getGameDef()->ndef();
-	const ContentFeatures &f_temp = ndef_temp->get(block_ahead);
-	if (f_temp.walkable)
-		vertical_collision = true;
-	if (vertical_collision)
-		return;
-	*/
-	/*
-
+	// must be running against something to trigger autojumping
 	if (!horizontal_collision)
 		return;
 
-	bool vertical_collision = false;
-	for (const auto &colinfo : result.collisions) {
-		if (colinfo.type == COLLISION_NODE && colinfo.plane != 1 && colinfo.new_pos == block_ahead->new_pos + v3f(0,1,0)) {//to detect if one block ahead of horizontal collision is colliding
-			vertical_collision = true;
-			break; // more won't help
-		}
-	}
-	// must not have 2-blocks-high wall ahead to trigger autojumping, pretty annoying and makes no sense
-	if (vertical_collision)
-		return;
-	//this is useless
-	*/
-	/*
-	bool vertical_collision = false; // change after implement
-	//todo: must be only one block ahead to trigger autojumping, in other words there must not be a vertical collision
-	v3f jump_dir = initial_speed; // jump direction means the mostly right horizontal direction and also 1 block above player position
-	if (jump_dir.X>jump_dir.Z){
-		jump_dir.Z=0;
-		jump_dir.X=jump_dir.Y=1;
-	}
-	else{
-		jump_dir.X=0;
-		jump_dir.Z=jump_dir.Y=1;
-	}
-	//only need 1 block ahead of the mostly right horizontal direction and 1 block above player position
-	v3s16 block_ahead_position = floatToInt(m_position, BS) + floatToInt(jump_dir, BS);
-	MapNode block_ahead = env->getMap().getNode(block_ahead_position);
-	const NodeDefManager *ndef_temp = env->getGameDef()->ndef();
-	const ContentFeatures &f_temp = ndef_temp->get(block_ahead);
-	if (f_temp.walkable)
-		vertical_collision = true;
-	if (vertical_collision)
-		return;
-		// PlayerControl has up.down.left.right, maybe that represents user key pressing, thus can be used for determination?
-		// that has been compressed and 0000 1111 represents up/down/left/right, by bit.
-		// using movement_direction now.
-	*/
 	bool spamming_jump = false; // change after implement
 	
-	//todo: must be only one block ahead to trigger autojumping, in other words there must not be a vertical collision
-	v3f main_movement_dir = initial_speed; // main movement direction if jumped on a block
-	if (main_movement_dir.X < main_movement_dir.Z)
+	//todo1: must be only one block ahead to trigger autojumping, in other words there must not be a vertical collision
+	//done: converted to check if there's a block in main dir. if not, quit it.
+	//todo2: spam jumping gone but have some rare case showing insensitivity with normal autojump detection, and need to fix that.
+	v3s16 main_movement_dir; // main movement direction if jumped on a block
+	
+	if (initial_speed.X*initial_speed.X > initial_speed.Z*initial_speed.Z) //might be a little faster than get abs value and compare
 	{
 		main_movement_dir.Z = 0;
-		main_movement_dir.X = main_movement_dir.Y = 1;
+		main_movement_dir.Y = 1;
+		main_movement_dir.X = numericSign(initial_speed.X);
 	}
-	if (main_movement_dir.X > main_movement_dir.Z)
+	if (initial_speed.X*initial_speed.X < initial_speed.Z*initial_speed.Z)
 	{
 		main_movement_dir.X = 0;
-		main_movement_dir.Z = main_movement_dir.Y = 1;
+		main_movement_dir.Y = 1;
+		main_movement_dir.Z = numericSign(initial_speed.Z);
 	}
 
 	//only need 1 block ahead of the mostly right horizontal direction 
-	v3s16 block_ahead_position = getStandingNodePos() + floatToInt(main_movement_dir, BS);
+	v3s16 block_ahead_position = getStandingNodePos() + main_movement_dir;
 	MapNode block_ahead = env->getMap().getNode(block_ahead_position);
 	const NodeDefManager *ndef_temp = env->getGameDef()->ndef();
 	const ContentFeatures &f_temp = ndef_temp->get(block_ahead);
@@ -1338,6 +1269,7 @@ void LocalPlayer::handleAutojump(f32 dtime, Environment *env,
 	for (s16 z = ceilpos_min.Z; z <= ceilpos_max.Z; ++z) {
 		for (s16 x = ceilpos_min.X; x <= ceilpos_max.X; ++x) {
 			MapNode n = env->getMap().getNode(v3s16(x, ceilpos_max.Y, z), &is_position_valid);
+
 			if (!is_position_valid)
 				break;  // won't collide with the void outside
 			if (n.getContent() == CONTENT_IGNORE)
@@ -1353,30 +1285,24 @@ void LocalPlayer::handleAutojump(f32 dtime, Environment *env,
 	float jump_height = (jumpspeed - 0.5f * gravity * peak_dtime) * peak_dtime; // s = vt - 1/2 gt^2
 	v3f jump_pos = initial_position + v3f(0.0f, jump_height, 0.0f);
 	v3f jump_speed = initial_speed;
-	const v3f initial_jump_pos = jump_pos;
 
 	// try at peak of jump, zero step height
 	collisionMoveResult jump_result = collisionMoveSimple(env, m_client, pos_max_d,
 		m_collisionbox, 0.0f, dtime, &jump_pos, &jump_speed, v3f(0.0f));
-	/*
-	// solve spamming autojump when player hit a wall
-	bool should_avoid_auto_jump_again = false;
-	v3f jump_pos_horizontal_diff = jump_pos - initial_jump_pos;
-	jump_pos_horizontal_diff.Y = 0;
-	if (jump_pos_horizontal_diff.Z < 0.01 || jump_pos_horizontal_diff.X < 0.01)
-		should_avoid_auto_jump_again = true;
-	*/
+
 	// see if we can get a little bit farther horizontally if we had
 	// jumped
-	
 	v3f run_delta = m_position - initial_position;
 	run_delta.Y = 0.0f;
 	v3f jump_delta = jump_pos - initial_position;
 	jump_delta.Y = 0.0f;
-	if (jump_delta.getLengthSQ() > run_delta.getLengthSQ() * 1.01f) {// jump_delta.getlengthsq almost always has a higher value than run_delta, is that where the problem is?
+	if (jump_delta.getLengthSQ() > run_delta.getLengthSQ() * 1.01f) {
 		m_autojump = true;
 		m_autojump_time = 0.1f;
 	}
+	
+
+	
 	//when hit a wall delta axis X or Z, there'll be one very little value.
 	//THIS MEANS jump has a very slightly faster speed than run, if jump can get furthur than run then continue to jump.
 	//problem is, there's a chance that after collisionMoveSimple modified jump_pos using jump_speed, making jump_pos furthur than m_potsition, which means running.
