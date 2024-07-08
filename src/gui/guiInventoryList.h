@@ -142,6 +142,11 @@ private:
 	// the index of the hovered item; -1 if no item is hovered
 	s32 m_hovered_i;
 
+	// the last mouse event happened to gui. needed for keeping tooltip consistency while gui update. don't use it manually
+	static SEvent last_mouse_event;
+
+	static SEvent* last_mouse_event_p;
+
 	// we do not want to write a warning on every draw
 	bool m_already_warned;
 };

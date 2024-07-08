@@ -22,6 +22,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/hud.h"
 #include "client/client.h"
 
+//用于分辨是否为空
+SEvent* GUIInventoryList::last_mouse_event_p = nullptr;
+SEvent GUIInventoryList::last_mouse_event;
+
 GUIInventoryList::GUIInventoryList(gui::IGUIEnvironment *env,
 	gui::IGUIElement *parent,
 	s32 id,
@@ -169,14 +173,36 @@ void GUIInventoryList::draw()
 
 bool GUIInventoryList::OnEvent(const SEvent &event)
 {
-	if (event.EventType != EET_MOUSE_INPUT_EVENT) {
+	if (event.EventType != EET_MOUSE_INPUT_EVENT)
+	{
 		if (event.EventType == EET_GUI_EVENT &&
 				event.GUIEvent.EventType == EGET_ELEMENT_LEFT) {
-			// element is no longer hovered
+			// usually, element is no longer hovered
 			m_hovered_i = -1;
+			// but there're cases that GUI only refreshs like furnace GUI or similar GUI
+			// in these cases element can still be hovered
+			// and should not be reset to -1 which will cause tooltip disappear.
+			// last_event 只会是 mouse input event, 因为它只在 event 成立为 mouse input event 时才被赋值。
+			// 再执行一次以往的mouseevent，使悬停逻辑重新运行一遍。
+			if (last_mouse_event_p != nullptr)
+			{
+				m_hovered_i = getItemIndexAtPos(v2s32(last_mouse_event.MouseInput.X, last_mouse_event.MouseInput.Y));
+				return IGUIElement::OnEvent(last_mouse_event) && IGUIElement::OnEvent(event);
+			}
 		}
 		return IGUIElement::OnEvent(event);
 	}
+	//todo1: 检查GUIevent，使判断更精细，去除并未关闭GUI界面的GUI刷新导致悬浮信息重置的bug情况
+	//或者对当前鼠标位置进行检测，确定该位置上没有物品再返回-1
+	//done: 会在GUI更新时检测是否鼠标下有物品，取消重置为-1的行为。
+	//考虑到函数获取的是外部常量的地址，若只复制该地址，也许随着程序运行外部调用函数会对该常量进行销毁
+	//此时被复制的地址不再有意义而成为空悬指针，在下次该函数被调用时，空悬指针的使用原本用于确认鼠标位置
+	//却因为其内存已经不再可用，可能会导致不可预料的错误发生。在类内声明一个对应变量，可以帮助解决该问题。
+	//todo2: GUI更新导致鼠标tooltip消失的问题似乎原因不止该函数的逻辑一个。寻找其他的逻辑来解决问题。
+	//totest: 添加了再次进行鼠标事件的逻辑。测试是否有效
+
+	last_mouse_event = event;
+	last_mouse_event_p = &last_mouse_event;
 
 	m_hovered_i = getItemIndexAtPos(v2s32(event.MouseInput.X, event.MouseInput.Y));
 
