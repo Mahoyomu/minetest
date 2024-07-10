@@ -187,7 +187,7 @@ bool GUIInventoryList::OnEvent(const SEvent &event)
 			if (last_mouse_event_p != nullptr)
 			{
 				m_hovered_i = getItemIndexAtPos(v2s32(last_mouse_event.MouseInput.X, last_mouse_event.MouseInput.Y));
-				return IGUIElement::OnEvent(last_mouse_event) && IGUIElement::OnEvent(event);
+				return IGUIElement::OnEvent(event) && (m_hovered_i == -1 ? true : IGUIElement::OnEvent(last_mouse_event));
 			}
 		}
 		return IGUIElement::OnEvent(event);
@@ -200,6 +200,8 @@ bool GUIInventoryList::OnEvent(const SEvent &event)
 	//却因为其内存已经不再可用，可能会导致不可预料的错误发生。在类内声明一个对应变量，可以帮助解决该问题。
 	//todo2: GUI更新导致鼠标tooltip消失的问题似乎原因不止该函数的逻辑一个。寻找其他的逻辑来解决问题。
 	//totest: 添加了再次进行鼠标事件的逻辑。测试是否有效
+	//无效。考虑是否是tooltip被drop了导致的问题，因为上述的mhover修改是有效的，确实会对判断逻辑形成影响。但由于GUI的刷新导致的drop逻辑暂时不明。
+	//todo3:处理GUI导致的tooltipdrop。
 
 	last_mouse_event = event;
 	last_mouse_event_p = &last_mouse_event;
