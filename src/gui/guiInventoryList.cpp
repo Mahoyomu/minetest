@@ -94,6 +94,12 @@ void GUIInventoryList::draw()
 
 	const s32 list_size = (s32)ilist->getSize();
 
+	if (last_mouse_event_p != nullptr)
+			{
+				m_hovered_i = getItemIndexAtPos(v2s32(last_mouse_event.MouseInput.X, last_mouse_event.MouseInput.Y));
+				
+			}
+
 	for (s32 i = 0; i < m_geom.X * m_geom.Y; i++) {
 		s32 item_i = i + m_start_item_i;
 		if (item_i >= list_size)
