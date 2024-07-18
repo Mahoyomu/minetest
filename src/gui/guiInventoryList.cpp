@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 //用于分辨是否为空
 SEvent* GUIInventoryList::last_mouse_event_p = nullptr;
 SEvent GUIInventoryList::last_mouse_event;
+bool is_last_mose_event_outside_formspec = true;
 
 GUIInventoryList::GUIInventoryList(gui::IGUIEnvironment *env,
 	gui::IGUIElement *parent,
@@ -94,10 +95,9 @@ void GUIInventoryList::draw()
 
 	const s32 list_size = (s32)ilist->getSize();
 
-	if (last_mouse_event_p != nullptr)
+	if (last_mouse_event_p != nullptr && is_last_mose_event_outside_formspec == false)
 			{
 				m_hovered_i = getItemIndexAtPos(v2s32(last_mouse_event.MouseInput.X, last_mouse_event.MouseInput.Y));
-				
 			}
 
 	for (s32 i = 0; i < m_geom.X * m_geom.Y; i++) {
@@ -190,11 +190,6 @@ bool GUIInventoryList::OnEvent(const SEvent &event)
 			// and should not be reset to -1 which will cause tooltip disappear.
 			// last_event 只会是 mouse input event, 因为它只在 event 成立为 mouse input event 时才被赋值。
 			// 再执行一次以往的mouseevent，使悬停逻辑重新运行一遍。
-			if (last_mouse_event_p != nullptr)
-			{
-				m_hovered_i = getItemIndexAtPos(v2s32(last_mouse_event.MouseInput.X, last_mouse_event.MouseInput.Y));
-				return IGUIElement::OnEvent(event) && (m_hovered_i == -1 ? true : IGUIElement::OnEvent(last_mouse_event));
-			}
 		}
 		return IGUIElement::OnEvent(event);
 	}
@@ -215,7 +210,10 @@ bool GUIInventoryList::OnEvent(const SEvent &event)
 	m_hovered_i = getItemIndexAtPos(v2s32(event.MouseInput.X, event.MouseInput.Y));
 
 	if (m_hovered_i != -1)
-		return IGUIElement::OnEvent(event);
+		{
+			is_last_mose_event_outside_formspec = false;
+			return IGUIElement::OnEvent(event);
+		}
 
 	// no item slot at pos of mouse event => allow clicking through
 	// find the element that would be hovered if this inventorylist was invisible
@@ -235,6 +233,8 @@ bool GUIInventoryList::OnEvent(const SEvent &event)
 	bool ret = hovered->OnEvent(event);
 
 	IsVisible = was_visible;
+
+	is_last_mose_event_outside_formspec = true;
 
 	return ret;
 }

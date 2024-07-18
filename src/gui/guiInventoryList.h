@@ -147,6 +147,9 @@ private:
 
 	static SEvent* last_mouse_event_p;
 
+	// judge if tooltip consistency should continue
+	static bool is_last_mose_event_outside_formspec;
+
 	// we do not want to write a warning on every draw
 	bool m_already_warned;
 };
