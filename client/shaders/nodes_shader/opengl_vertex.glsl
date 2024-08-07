@@ -172,11 +172,16 @@ void main(void)
 	// The constants are calibrated such that they roughly
 	// correspond to the old sine waves.
 	vec3 wavePos = (mWorld * pos).xyz + cameraOffset;
+	bool shouldRender = true;
+	bool isDownwardLiquid = true; // to implement, when true, don't limit liquid wave, when false, limit liquid wave to edge
+	float solidDownwardEdge; //to implement, when wave's y is below this, disable rendering of that point,set should render to false
 	// The waves are slightly compressed along the z-axis to get
 	// wave-fronts along the x-axis.
 	wavePos.x /= WATER_WAVE_LENGTH * 3.0;
 	wavePos.z /= WATER_WAVE_LENGTH * 2.0;
 	wavePos.z += animationTimer * WATER_WAVE_SPEED * 10.0;
+	if ((snoise(wavePos) - 1.0) * WATER_WAVE_HEIGHT * 5.0 < -1)
+		shouldRender = false;//use the lowest y pos for limit,hide wave downwards
 	pos.y += (snoise(wavePos) - 1.0) * WATER_WAVE_HEIGHT * 5.0;
 #elif MATERIAL_TYPE == TILE_MATERIAL_WAVING_LEAVES && ENABLE_WAVING_LEAVES
 	pos.x += disp_x;
