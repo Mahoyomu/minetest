@@ -1218,7 +1218,7 @@ void Game::run()
 			dtime = 0.0f;
 
 		step(dtime);
-
+//fork
 		processClientEvents(&cam_view_target);
 		updateDebugState();
 		updateCamera(dtime);
@@ -2878,6 +2878,23 @@ void Game::handleClientEvent_PlayerForceMove(ClientEvent *event, CameraOrientati
 	cam->camera_yaw = event->player_force_move.yaw;
 	cam->camera_pitch = event->player_force_move.pitch;
 }
+//fork
+/* 
+todo:
+已知死亡菜单消失是由其他formspec重写引起。
+可以通过存储handleClientEvent_ShowFormSpec中的event来实现回调。
+首先：创建新的formspec时，检测该formspec的优先级是否小于event中的优先级。
+若小于等于则正常执行，若大于则存储该event到序列中，等待该formspec给出回调。当回调完成时，重新按序调用event序列。
+可以通过新方法的方式，在formspec的绘制提交到调用绘制方法的中间插入该实现方法，然后在该方法内单独实现上述功能，以实现相对的独立性。
+event序列实现可以使用栈。
+为实现优先级比较，需要在类中新增具有默认值的优先级变量。这默认值可以设置为0。当执行showformspec时，同时将这一优先级自event传递至新生成的formspec。
+formspec的回调实现：是否需要回调实现，取决于formspec是否可以被关闭。
+
+另外一种实现方法：当检测formspec是否为空，并且为空时，检测hp是否为0。若hp为0，立刻调用一次死亡spec，即showDeathFormspec()。
+formspec关闭时，应该会有函数调用。具体实现可以寻找该函数调用，并且在此后加上这一判断逻辑，假如这函数仅在有formspec关闭（即确认是关闭）的情况下执行，则不用再判断是否为空。
+
+*/
+
 
 void Game::handleClientEvent_Deathscreen(ClientEvent *event, CameraOrientation *cam)
 {
@@ -2902,6 +2919,8 @@ void Game::handleClientEvent_ShowFormSpec(ClientEvent *event, CameraOrientation 
 		if (formspec && (event->show_formspec.formname->empty()
 				|| *(event->show_formspec.formname) == m_game_ui->getFormspecName())) {
 			formspec->quitMenu();
+			if (client->getHP()<=0)
+				showDeathFormspec();
 		}
 	} else {
 		FormspecFormSource *fs_src =
@@ -4425,7 +4444,7 @@ void Game::readSettings()
  Shutdown / cleanup
  ****************************************************************************/
 /****************************************************************************/
-
+//fork
 void Game::showDeathFormspec()
 {
 	static std::string formspec_str =
