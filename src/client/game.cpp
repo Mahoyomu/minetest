@@ -1230,6 +1230,14 @@ void Game::run()
 		if (m_does_lost_focus_pause_game && !device->isWindowFocused() && !isMenuActive()) {
 			showPauseMenu();
 		}
+		auto *&formspec = m_game_ui->getFormspecGUI();
+		if (!server->isRespawned() && formspec == nullptr)
+		{
+			if (client->modsLoaded())
+				client->getScript()->on_death();
+			else
+				showDeathFormspec();
+		}
 	}
 
 	RenderingEngine::autosaveScreensizeAndCo(initial_screen_size, initial_window_maximized);
@@ -2893,6 +2901,9 @@ formspec的回调实现：是否需要回调实现，取决于formspec是否可�
 另外一种实现方法：当检测formspec是否为空，并且为空时，检测hp是否为0。若hp为0，立刻调用一次死亡spec，即showDeathFormspec()。
 formspec关闭时，应该会有函数调用。具体实现可以寻找该函数调用，并且在此后加上这一判断逻辑，假如这函数仅在有formspec关闭（即确认是关闭）的情况下执行，则不用再判断是否为空。
 
+已知：handleClientEvent_ShowFormSpec中的quit逻辑并不是formspec关闭时一定会执行的逻辑，该修复并不能发挥作用。并且现有在if外加判断的逻辑也失败。
+
+预期的也许稍简单的解决方式：为formspec添加一个指标，当覆盖formspec时对该指标进行判断。若判定该指标是成立的，即为死亡画面，则想办法再重新调用一次死亡事件，加入事件栏位。
 */
 
 
@@ -2919,9 +2930,8 @@ void Game::handleClientEvent_ShowFormSpec(ClientEvent *event, CameraOrientation 
 		if (formspec && (event->show_formspec.formname->empty()
 				|| *(event->show_formspec.formname) == m_game_ui->getFormspecName())) {
 			formspec->quitMenu();
-			if (client->getHP()<=0)
-				showDeathFormspec();
 		}
+		
 	} else {
 		FormspecFormSource *fs_src =
 			new FormspecFormSource(*(event->show_formspec.formspec));
@@ -2933,7 +2943,6 @@ void Game::handleClientEvent_ShowFormSpec(ClientEvent *event, CameraOrientation 
 			&input->joystick, fs_src, txt_dst, client->getFormspecPrepend(),
 			sound_manager.get());
 	}
-
 	delete event->show_formspec.formspec;
 	delete event->show_formspec.formname;
 }
